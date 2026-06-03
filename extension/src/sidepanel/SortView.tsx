@@ -130,12 +130,6 @@ function ReviewContainer({
     })()
   }, [])
 
-  // Trigger initial plan load
-  useEffect(() => {
-    refresh()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   if (loading) {
     return <div className="text-surface-400 text-sm py-4 text-center">Building plan…</div>
   }
