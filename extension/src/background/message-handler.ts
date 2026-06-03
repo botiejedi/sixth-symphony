@@ -1,3 +1,4 @@
+import { buildPlanFromBackground } from './sort-orchestration.js'
 import type { TabInfo, OperationProgress, SortOptions, TabGroupOptions } from '@/types/domain'
 import { getAllTabs, getTabsInWindow, closeTabs, groupTabs, sortTabsByDomain, sortTabs, sortAllTabs } from '@/lib/chrome/tabs'
 import { getAllWindows, mergeWindows } from '@/lib/chrome/windows'
@@ -582,8 +583,16 @@ If asked for a summary, provide a brief overview of what the user seems to be wo
 }
 
 export function setupMessageHandler(): void {
-  chrome.runtime.onMessage.addListener((message: Message, _sender, sendResponse) => {
-    handleMessage(message)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  chrome.runtime.onMessage.addListener((message: any, _sender, sendResponse) => {
+    if (message?.kind === 'build-plan') {
+      buildPlanFromBackground()
+        .then((plan) => sendResponse(plan))
+        .catch((error) => sendResponse({ error: error instanceof Error ? error.message : 'build-plan failed' }))
+      return true
+    }
+
+    handleMessage(message as Message)
       .then((response) => sendResponse(response))
       .catch((error) => {
         logger.error('Message handler error', { message, error })
