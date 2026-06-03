@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import type { Workspace } from '@symphony/shared';
 import type { PlanRow } from '../background/orchestrator.js';
 
@@ -59,7 +60,11 @@ export function ReviewPanel({ rows, workspaces, onApply, onChangeRow }: ReviewPa
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4">
+    <motion.div
+      className="flex flex-col gap-4 p-4"
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+    >
       <button
         type="button"
         onClick={handleApply}
@@ -108,7 +113,7 @@ export function ReviewPanel({ rows, workspaces, onApply, onChangeRow }: ReviewPa
           onChangeRow={onChangeRow}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -158,7 +163,12 @@ function RowItem({ row, workspaces, isChecked, onToggle, onChangeRow }: RowItemP
   }
 
   return (
-    <div className="flex items-start gap-3 p-3 bg-gray-50 rounded border border-gray-200">
+    <motion.div
+      layout
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="flex items-start gap-3 p-3 bg-gray-50 rounded border border-gray-200"
+    >
       <input
         type="checkbox"
         checked={isChecked}
@@ -184,6 +194,6 @@ function RowItem({ row, workspaces, isChecked, onToggle, onChangeRow }: RowItemP
           </option>
         ))}
       </select>
-    </div>
+    </motion.div>
   );
 }
