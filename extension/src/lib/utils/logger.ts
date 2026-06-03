@@ -103,7 +103,7 @@ class Logger {
 export const logger = new Logger()
 
 // Enable debug logging in development
-// @ts-expect-error - process may not exist in browser
+// @ts-ignore - process may not exist in browser
 if (typeof globalThis.process !== 'undefined' && globalThis.process?.env?.NODE_ENV === 'development') {
   logger.setLevel('debug')
 }
