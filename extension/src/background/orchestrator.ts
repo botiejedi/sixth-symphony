@@ -1,5 +1,5 @@
 import type { Workspace, Example } from '@symphony/shared';
-import { applyHardRules } from '../classifier/hard-rules.js';
+import { applyHardRules, extractDomain } from '../classifier/hard-rules.js';
 import { classifyTabs, type ClassifierRow, type LLM } from '../classifier/classify.js';
 import { SidecarClient, SidecarUnreachable } from '../lib/sidecar/client.js';
 import { RulesCache } from '../lib/sidecar/rules-cache.js';
@@ -55,14 +55,8 @@ export async function buildPlan(deps: OrchestratorDeps): Promise<Plan> {
     const remainingDomains = [
       ...new Set(
         remaining
-          .map(t => {
-            try {
-              return t.url ? new URL(t.url).hostname : '';
-            } catch {
-              return '';
-            }
-          })
-          .filter(Boolean)
+          .map(t => extractDomain(t.url))
+          .filter((d): d is string => Boolean(d))
       ),
     ].slice(0, 10);
 

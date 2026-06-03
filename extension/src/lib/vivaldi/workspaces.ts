@@ -7,7 +7,7 @@ export function parseVivExtData(raw: string | undefined): VivExtData | null {
   if (!raw) return null;
   try {
     const parsed = JSON.parse(raw);
-    if (parsed && typeof parsed === 'object') return parsed as VivExtData;
+    if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) return parsed as VivExtData;
     return null;
   } catch {
     return null;

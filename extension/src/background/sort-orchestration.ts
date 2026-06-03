@@ -17,6 +17,9 @@ const llm: LLM = {
         { role: 'system', content: system },
         { role: 'user', content: user },
       ],
+      // Tab batches can be large; the provider default (1000) truncates the
+      // JSON array and forces the classifier's keep-all fallback. Give it room.
+      maxTokens: 4096,
     });
     return res.content;
   },
