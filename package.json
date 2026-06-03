@@ -1,0 +1,19 @@
+{
+  "name": "6th-symphony",
+  "private": true,
+  "version": "0.0.0",
+  "description": "AI tab sorter for Vivaldi — extension + memory sidecar.",
+  "workspaces": [
+    "extension",
+    "sidecar",
+    "shared"
+  ],
+  "scripts": {
+    "build:extension": "npm --workspace extension run build",
+    "dev:extension": "npm --workspace extension run dev",
+    "test:extension": "npm --workspace extension run test -- --run"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
