@@ -11,7 +11,8 @@
   "scripts": {
     "build:extension": "npm --workspace extension run build",
     "dev:extension": "npm --workspace extension run dev",
-    "test:extension": "npm --workspace extension run test -- --run"
+    "test:extension": "npm --workspace extension run test -- --run",
+    "test:smoke": "node --test tests/smoke/*.test.mjs"
   },
   "engines": {
     "node": ">=20"
