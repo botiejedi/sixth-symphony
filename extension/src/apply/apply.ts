@@ -36,7 +36,7 @@ async function maybePromote(
 ): Promise<boolean> {
   const history = await sidecar.listExamplesHybrid({ recent: 100, domains: [domain] });
   const sameWs = history.filter(
-    e => e.userChoseAction === 'move' && e.userChoseWorkspaceId === workspaceId,
+    e => e.domain === domain && e.userChoseAction === 'move' && e.userChoseWorkspaceId === workspaceId,
   );
   if (sameWs.length >= 3) {
     try {

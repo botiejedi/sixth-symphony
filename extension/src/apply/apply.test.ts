@@ -200,11 +200,11 @@ describe('applyPlan', () => {
   });
 
   describe('rule promotion', () => {
-    it('calls createRule when listExamplesHybrid returns >=3 matching move+same-workspace examples', async () => {
+    it('calls createRule when listExamplesHybrid returns >=3 matching move+same-workspace examples for the domain', async () => {
       const existingExamples: Partial<Example>[] = [
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
       ];
       const sidecar = makeSidecar({
         listExamplesHybrid: vi.fn().mockResolvedValue(existingExamples),
@@ -231,8 +231,8 @@ describe('applyPlan', () => {
 
     it('does NOT call createRule when listExamplesHybrid returns <3 matching examples', async () => {
       const existingExamples: Partial<Example>[] = [
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'news.ycombinator.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'news.ycombinator.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
       ];
       const sidecar = makeSidecar({
         listExamplesHybrid: vi.fn().mockResolvedValue(existingExamples),
@@ -254,11 +254,40 @@ describe('applyPlan', () => {
       expect(result.rulesPromoted).toBe(0);
     });
 
+    it('does NOT promote when the >=3 examples belong to OTHER domains (hybrid global-recent contamination)', async () => {
+      // listExamplesHybrid mixes global-recent rows with per-domain rows, so the
+      // raw result can contain plenty of move+same-workspace examples from
+      // unrelated domains. Promotion must only count examples for THIS domain.
+      const existingExamples: Partial<Example>[] = [
+        { domain: 'unrelated-a.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'unrelated-b.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'unrelated-c.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+      ];
+      const sidecar = makeSidecar({
+        listExamplesHybrid: vi.fn().mockResolvedValue(existingExamples),
+        createRule: vi.fn().mockResolvedValue({}),
+      });
+      const deps = makeDeps({ sidecar });
+      const rows: ApplyRow[] = [
+        makeRow({
+          tabId: 52,
+          action: 'move',
+          workspaceId: 'ws-work',
+          modelSuggestedWorkspaceId: 'ws-other',
+          vivaldiWorkspaceId: 1,
+          domain: 'github.com',
+        }),
+      ];
+      const result = await applyPlan(rows, deps);
+      expect((sidecar.createRule as ReturnType<typeof vi.fn>)).not.toHaveBeenCalled();
+      expect(result.rulesPromoted).toBe(0);
+    });
+
     it('deduplicates promotion: same domain+workspaceId pair only promoted once even if multiple corrections', async () => {
       const existingExamples: Partial<Example>[] = [
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
-        { userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
+        { domain: 'github.com', userChoseAction: 'move', userChoseWorkspaceId: 'ws-work' },
       ];
       const sidecar = makeSidecar({
         listExamplesHybrid: vi.fn().mockResolvedValue(existingExamples),
