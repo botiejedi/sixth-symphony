@@ -36,10 +36,10 @@
     "storage",
     "sidePanel",
     "tabGroups",
-    "alarms"
+    "alarms",
+    "tabs"
   ],
   "optional_permissions": [
-    "tabs",
     "bookmarks"
   ],
   "host_permissions": [
@@ -48,7 +48,8 @@
     "https://api.deepseek.com/*",
     "https://api.together.xyz/*",
     "https://openrouter.ai/*",
-    "https://*/*"
+    "https://*/*",
+    "http://127.0.0.1:8765/*"
   ],
   "optional_host_permissions": [
     "http://localhost:*/*",
