@@ -19,5 +19,9 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.28.1",
+    "drizzle-orm": "^0.36.4"
   }
 }
