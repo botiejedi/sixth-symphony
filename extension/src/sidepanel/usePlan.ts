@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import type { Plan } from '../background/orchestrator.js';
 
 interface UsePlanResult {
@@ -40,6 +40,11 @@ export function usePlan(): UsePlanResult {
       }
     );
   }, []);
+
+  // Build the plan once on mount; refresh() can be called again to rebuild.
+  useEffect(() => {
+    refresh();
+  }, [refresh]);
 
   return { plan, loading, error, refresh };
 }
