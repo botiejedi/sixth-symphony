@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { useTabs, useDuplicateTabs, useLLMConfig, useWindows } from '../hooks'
 import { CopyTabsButton } from '../components'
 
-export type View = 'dashboard' | 'duplicates' | 'windows' | 'merge' | 'bookmarks' | 'settings' | 'chat' | 'mindmap'
+export type View = 'dashboard' | 'duplicates' | 'windows' | 'merge' | 'bookmarks' | 'settings' | 'chat' | 'mindmap' | 'sort'
 
 interface DashboardProps {
   onNavigate: (view: View) => void
@@ -29,6 +29,17 @@ export function Dashboard({ onNavigate }: DashboardProps) {
   )
 
   const actions = [
+    {
+      id: 'sort',
+      title: 'Sort into Workspaces',
+      description: 'AI-sort tabs into Vivaldi workspaces',
+      icon: <SortIcon />,
+      view: 'sort' as View,
+      disabled: !isConfigured,
+      gradient: 'from-brand-500 to-violet-600',
+      shadowColor: 'shadow-brand-500/20',
+      aiPowered: true,
+    },
     {
       id: 'chat',
       title: 'Chat with Tabs',
@@ -342,6 +353,14 @@ function MindmapIcon() {
       <circle cx="5" cy="18" r="2" strokeWidth={2} />
       <circle cx="19" cy="18" r="2" strokeWidth={2} />
       <path strokeLinecap="round" strokeWidth={2} d="M9.5 10L6.5 7.5M14.5 10l3-2.5M9.5 14l-3 2.5M14.5 14l3 2.5" />
+    </svg>
+  )
+}
+
+function SortIcon() {
+  return (
+    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7h18M6 12h12M10 17h4" />
     </svg>
   )
 }

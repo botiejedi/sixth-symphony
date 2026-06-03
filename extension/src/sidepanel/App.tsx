@@ -13,6 +13,7 @@ import {
   TabMindmap,
   type View,
 } from './pages'
+import { SortView } from './SortView.js'
 
 export default function App() {
   const [view, setView] = useState<View>('dashboard')
@@ -155,6 +156,8 @@ function ViewRenderer({
         return <TabChat onBack={() => onNavigate('dashboard')} />
       case 'mindmap':
         return <TabMindmap onBack={() => onNavigate('dashboard')} />
+      case 'sort':
+        return <SortView onBack={() => onNavigate('dashboard')} />
       default:
         return <Dashboard onNavigate={onNavigate} />
     }
