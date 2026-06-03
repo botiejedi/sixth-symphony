@@ -3,9 +3,11 @@ import type { DB } from './db/client.js';
 import { workspacesRouter } from './routes/workspaces.js';
 import { rulesRouter } from './routes/rules.js';
 import { examplesRouter } from './routes/examples.js';
+import { bearerAuth } from './middleware/auth.js';
 
 export interface AppDeps {
   db: DB;
+  requireToken?: string;
 }
 
 export function buildApp(deps: AppDeps) {
@@ -15,6 +17,10 @@ export function buildApp(deps: AppDeps) {
     c.set('db', deps.db);
     await next();
   });
+
+  if (deps.requireToken) {
+    app.use('*', bearerAuth(deps.requireToken));
+  }
 
   app.get('/v1/health', (c) => c.json({ ok: true }));
 
