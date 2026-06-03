@@ -16,7 +16,7 @@ describe('SidecarClient', () => {
     server.use(http.get('http://127.0.0.1:8765/v1/rules', () =>
       HttpResponse.json([{ id: 'r-1', domain: 'github.com', workspaceId: 'ws-1', hitCount: 0, createdAt: '2026-06-02T00:00:00.000Z' }])));
     const rules = await client.listRules();
-    expect(rules[0].domain).toBe('github.com');
+    expect(rules[0]!.domain).toBe('github.com');
   });
   it('throws SidecarUnreachable when fetch rejects after one retry', async () => {
     server.use(http.get('http://127.0.0.1:8765/v1/rules', () => HttpResponse.error()));

@@ -2,9 +2,11 @@ import { RuleSchema, ExampleSchema, WorkspaceSchema, type Rule, type Example, ty
 import { z } from 'zod';
 
 export class SidecarUnreachable extends Error {
-  constructor(cause?: unknown) {
+  // eslint-disable-next-line @typescript-eslint/class-literal-property-style
+  readonly cause: unknown;
+  constructor(causeErr?: unknown) {
     super('sidecar unreachable');
-    this.cause = cause;
+    this.cause = causeErr;
   }
 }
 
