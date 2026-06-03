@@ -17,3 +17,6 @@ sidecar/*.db-shm
 # editor scratch
 .vscode/
 .idea/
+
+# local Claude Code agent state
+.claude/
