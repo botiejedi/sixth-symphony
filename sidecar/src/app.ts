@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import type { DB } from './db/client.js';
 import { workspacesRouter } from './routes/workspaces.js';
+import { rulesRouter } from './routes/rules.js';
 
 export interface AppDeps {
   db: DB;
@@ -17,6 +18,7 @@ export function buildApp(deps: AppDeps) {
   app.get('/v1/health', (c) => c.json({ ok: true }));
 
   app.route('/v1/workspaces', workspacesRouter());
+  app.route('/v1/rules', rulesRouter());
 
   app.notFound((c) => c.json({ error: `not found: ${c.req.path}` }, 404));
   app.onError((err, c) => {
