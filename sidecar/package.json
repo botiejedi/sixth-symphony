@@ -1,0 +1,6 @@
+{
+  "name": "@symphony/sidecar",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Memory sidecar — implemented in Plan 2."
+}
