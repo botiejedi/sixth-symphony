@@ -1,14 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "TabBrain",
-  "description": "AI-powered tab and bookmark organizer",
+  "name": "6th Symphony — AI Tab Sorter",
+  "description": "Sorts your Vivaldi tabs into workspaces with a local AI model. Learns your taste over time.",
   "version": "1.0.0",
   "commands": {
     "_execute_action": {
       "suggested_key": {
         "default": "Alt+T"
       },
-      "description": "Open TabBrain side panel"
+      "description": "Open 6th Symphony side panel"
     }
   },
   "icons": {
@@ -18,7 +18,7 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_title": "Open TabBrain",
+    "default_title": "Open 6th Symphony",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png"

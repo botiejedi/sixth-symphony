@@ -483,7 +483,7 @@ export function Settings({ onBack }: SettingsProps) {
             <div className="p-3 rounded-xl bg-surface-800/50">
               <p className="text-xs text-surface-500 mb-2">Privacy</p>
               <p className="text-xs text-surface-400">
-                TabBrain only accesses tab URLs and titles. Page content is never read.
+                6th Symphony only accesses tab URLs and titles. Page content is never read.
               </p>
             </div>
           </div>

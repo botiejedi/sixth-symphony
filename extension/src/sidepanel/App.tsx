@@ -83,7 +83,7 @@ export default function App() {
               </div>
               <div className="flex flex-col items-start">
                 <span className="font-display font-bold text-lg text-white tracking-tight">
-                  Tab<span className="text-gradient">Brain</span>
+                  6th <span className="text-gradient">Symphony</span>
                 </span>
               </div>
             </motion.button>
@@ -217,7 +217,7 @@ function PermissionRequest({ onRequest }: { onRequest: () => void }) {
         transition={{ delay: 0.3 }}
         className="text-surface-400 mb-8 max-w-xs leading-relaxed"
       >
-        TabBrain needs access to your tabs and bookmarks to help organize them intelligently.
+        6th Symphony needs access to your tabs and bookmarks to help organize them intelligently.
       </motion.p>
 
       <motion.button

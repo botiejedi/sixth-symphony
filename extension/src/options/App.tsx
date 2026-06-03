@@ -142,7 +142,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
       <div className="max-w-2xl mx-auto px-4">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
-          TabBrain Settings
+          6th Symphony Settings
         </h1>
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 space-y-6">
