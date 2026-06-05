@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "6th Symphony — AI Tab Sorter",
+  "description": "Sorts your Vivaldi tabs into workspaces with a local AI model. Learns your taste over time.",
+  "version": "1.0.0",
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+T"
+      },
+      "description": "Open 6th Symphony side panel"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Open 6th Symphony",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel/index.html"
+  },
+  "options_page": "src/options/index.html",
+  "background": {
+    "service_worker": "src/background/index.ts",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "sidePanel",
+    "tabGroups",
+    "alarms",
+    "tabs"
+  ],
+  "optional_permissions": [
+    "bookmarks"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://api.anthropic.com/*",
+    "https://api.deepseek.com/*",
+    "https://api.together.xyz/*",
+    "https://openrouter.ai/*",
+    "https://*/*",
+    "http://*/*"
+  ]
+}

@@ -1,0 +1,22 @@
+node_modules/
+dist/
+build/
+*.log
+.DS_Store
+.env
+.env.local
+
+# vite / crxjs build artifacts
+extension/dist/
+
+# sqlite databases (sidecar will write here)
+sidecar/*.db
+sidecar/*.db-wal
+sidecar/*.db-shm
+
+# editor scratch
+.vscode/
+.idea/
+
+# local Claude Code agent state
+.claude/
