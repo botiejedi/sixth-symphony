@@ -93,7 +93,11 @@ export function SortView({ onBack }: { onBack: () => void }) {
       )}
 
       {phase === 'onboarding' && (
-        <Onboarding discoveredIds={discoveredIds} onSave={handleSave} />
+        <Onboarding
+          discoveredIds={discoveredIds}
+          onSave={handleSave}
+          onRetry={() => void runInit()}
+        />
       )}
 
       {phase === 'review' && (
